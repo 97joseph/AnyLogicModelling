@@ -1,0 +1,444 @@
+
+<!-- saved from url=(0075)https://sites.esm.psu.edu/courses/emch12/IntDyn/course-docs/Euler-tutorial/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+   <meta name="GENERATOR" content="Mozilla/4.05 [en] (Win95; I) [Netscape]">
+   <meta name="Author" content="Mike Stubna">
+   <meta name="Description" content="This page attempts to outline the simplest of all quadrature programs -Euler&#39;s method.  Intended for the use of Emch12-Interactive Dynamics">
+   <title>Euler's Method Tutorial</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#800080" alink="#CC0000" nosave="">
+
+<center><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968"></center>
+
+<center><b><font size="+3">Euler's Method Tutorial</font></b></center>
+
+<center><b>A method of solving ordinary differential equations using Microsoft
+Excel</b></center>
+
+<center><img src="./Euler&#39;s Method Tutorial_files/oilwell.gif" nosave="" height="82" width="116" align="CENTER"></center>
+<img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+<p><b><i><font size="+2">Introduction</font></i></b>
+
+</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font size="+1">During this
+semester, you will become very familiar with ordinary differential equations,
+as the use of Newton's second law to analyze problems almost always produces
+second time derivatives of position vectors.&nbsp; We spend a great deal
+of time studying simple problems in depth mostly because of their transparency
+- we can readily see and understand how a simple system evolves in time.&nbsp;
+By the same token, it is important to realize that very few differential
+equations that come from "real world" problems can be solved explicitly,
+and often it is necessary to resort to numerical integration for their
+solutions.&nbsp; Euler's method is the most basic integration technique
+that we use in this class, and as is often the case in numerical methods,
+the jump from this simple method to more complex methods is one of technical
+sophistication, not conception.</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; This tutorial is intended for those
+with minimal background in spreadsheet use, so if you have experience you
+may want to skim the spreadsheet intro parts and pay attention to the later
+detailed parts.&nbsp; Also, when you are done with this tutorial, please
+<a href="mailto:mds217@psu.edu">email</a> the authors with your response
+(see the very bottom of this page).</font>
+
+</p><p><font size="+1">&nbsp;</font>&nbsp;<img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">Theory</font></i></b>
+<br><font size="+1">&nbsp;</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; In general, the equation of motion
+for a single degree of freedom system can be written as the scalar equation:</font>
+</p><center><b><font size="+2">a = f(v, x, t)</font></b></center>
+<font size="+1">&nbsp;&nbsp;&nbsp; where a is the acceleration, v is the
+velocity, x is the position and t is time.&nbsp; A well defined ODE also
+has a set of boundary conditions given, so that the equation may be solved
+for a unique solution.&nbsp; The boundary conditions take the form of an
+initial position, and/or initial velocity value.&nbsp; Euler's method is
+an iterative procedure (ie:&nbsp; it takes the initial values of position
+and time, and the equation, and somehow comes up with a new set of values).&nbsp;&nbsp;&nbsp;
+Since the real value of an integral of a function can be measured by the
+area under the curve of that function, we can say that:</font>
+<center><b><font size="+2">v(t+<font face="Symbol">D</font>t) = v(t)+area
+under the a v/s. t curve from t to <font face="Symbol">D</font>t</font></b></center>
+
+<center><b><font size="+2">x(t+<font face="Symbol">D</font>t) = x(t)+area
+under the v v/s. t curve from t to <font face="Symbol">D</font>t</font></b></center>
+<font size="+1">&nbsp;&nbsp;&nbsp; As was presented in class and in the text,
+(pps. 57-65) Euler's method makes the crude approximation that the area
+under the curve between a known value of a function and the next value
+in time can be approximated by a rectangle (See Fig 1).&nbsp; Of course,
+since we know the leftmost side of the rectangle to be the initial value
+of the function, the rectangle under the <b>a</b> v/s. <b>t</b> curve has
+dimensions of <b>a(t)</b> and <b><font face="Symbol">D</font>t</b>.&nbsp;
+Likewise for the <b>v(t)</b> v/s. <b>t</b> rectangle.</font>
+<center><img src="./Euler&#39;s Method Tutorial_files/graph1.gif" nosave="" border="5" height="293" width="423" align="ABSCENTER"></center>
+
+<center><b><font size="+2">Fig 1</font></b></center>
+
+
+<p><font size="+1"><b>&nbsp;&nbsp;&nbsp; </b>So then, if we want to iterate
+one step forward in time, given the values of v(t1) and x(t1), we would
+simply substitute in the area of the rectangle for the real integral and
+get:</font>
+</p><center><b><font size="+2">v(t2)=v(t1)+a(t1)*(t2-t1)</font></b></center>
+
+<center><b><font size="+2">x(t2)=x(t1)+v(t1)*(t2-t1)</font></b></center>
+<b><font size="+2">&nbsp;&nbsp;&nbsp; </font></b><font size="+1">Of course,
+this is really a shabby kind of approximation, as can be seen from the
+large triangle that we miss in the picture - but it has the one redeeming
+quality that as <b><font face="Symbol">D</font>t </b>goes to zero, the
+error incurred by using the rectangle approximation also goes to zero.&nbsp;
+So then, all we have to do is make <b><font face="Symbol">D</font>t </b>small
+enough and wait long enough for our computer to chug through all the calculations,
+and we will get a reasonable approximation to the real solution.&nbsp;
+Click <a href="https://sites.esm.psu.edu/courses/emch12/IntDyn/course-docs/Euler-tutorial/convergence.html">here</a> for a simple picture of this
+convergence.&nbsp; Of course, as you may have suspected by now, there are
+a few really pathological functions that people have concocted just for
+the sole purpose of testing when numerical integration fails, but we don't
+have to worry about those in this class.&nbsp; So, on we go . . .</font>
+
+<p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">Application</font></i></b>
+<br><font size="+1">&nbsp;</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; Part of the <a href="http://www.esm.psu.edu/courses/emch12/intdyn/activities/intro/gravity/default.html">first
+activity</a> assignment involves solving, by Euler's method, the simple
+pendulum equation derived in class:</font>
+</p><center><b><font size="+2"><font face="Symbol">q</font>'' + (g/L)<font face="Symbol">q
+</font>= 0</font></b></center>
+<font size="+1">(where the double prime denotes a double time derivative).&nbsp;
+Since this assignment must be completed using a spreadsheet program (preferable
+Microsoft Excel), the approach here will be to step by step go through
+the process of creating a spreadsheet, entering the data, and finally,
+interpreting the output.</font>
+
+<p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">The Excel Spreadsheet - Integrating the Equation</font></i></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Spreadsheets are fairly simple to use
+if you keep in mind that there are three main types of data structures
+that can be entered into any one cell.&nbsp; If you always remember to
+check what type of structure each cell contains, you will minimize your
+chances of frustration.&nbsp; The first type of data is <b>text</b> - ie:&nbsp;
+you type in a column heading that reminds you what is going to go in that
+column, or you put your name in a cell at the top of the page, etc.&nbsp;
+This type of data is very simple, because once it is entered, you probably
+won't be messing around with it again.&nbsp; The hardest part about entering
+text is selecting what size font you want.&nbsp; The second type of data
+is <b>numeric</b> data.&nbsp; Numeric data is also easy to enter, you just
+type it right into the box on the page.&nbsp; An example of numeric data
+would be a constant that you need later (like g, the acceleration due to
+gravity), or it might be some other parameters which are given and are
+specific to your problem.&nbsp; In any case, numeric data can only be changed
+when you erase what is in the cell, and type a new value.&nbsp; The final
+type of data structure is a <b>formula</b>.&nbsp; A formula is more complicated
+than the other two data structures, because it works in the background
+and produces numeric or text data which actually shows up in the cell.&nbsp;
+Formulas must be entered in a special way, so that the spreadsheet recognizes
+them.&nbsp; A formula might tell the computer to add the numeric data of
+the two cells above it and show the result in the appropriate cell.&nbsp;
+So, just looking at what is in a cell is not good enough to define the
+data type, because it is necessary to know whether the stuff in the cell
+is being produced by a formula or whether is there because you typed it
+there.</font>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">A quick note about formulas:&nbsp;
+the key concept about a spreadsheet that is important to keep in mind is
+the fact that you can copy formulas and paste them in other places, and
+they index themselves!&nbsp; Say that you have two columns of data that
+you need to add up separately.&nbsp; You would do this by making a formula
+in the cell right below the first column that told the spreadsheet to add
+up all the numbers in that column.&nbsp; Then, what would you do about
+adding up the numbers in the second column?&nbsp; You could type in the
+formula again, but there is an easier way - just copy the formula from
+the first column and then paste in the cell below the second column.&nbsp;
+What happens?&nbsp; The spreadsheet "knows" that you want to add up the
+second row and not the first, so it changes the index for you.&nbsp; This
+is the whole idea behind spreadsheets - paste functions across and down
+and the indexing will take care of itself.&nbsp; Of course, sometimes you
+may not want the index to change, like when you are referencing a constant
+- we'll cover that shortly.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Ok, so now that we have outlined what
+we want to accomplish with Euler's method, and how we are going to accomplish
+it via the spreadsheet, let's go through the steps:&nbsp; First, let's
+enter some text into the spreadsheet, to define the columns of information
+that we are going to tabulate.&nbsp; Fig 2 shows how to do this.&nbsp;
+Simply click your cursor over the cell you like, and you will see it become
+highlighted with a outlined box.&nbsp; Then, just type in at the keyboard
+what you want to appear in the cell.&nbsp; Also notice that what you type
+will appear in the cell which lies above the top row of sheet but below
+the toolbar.&nbsp; We'll come back to this special cell later.&nbsp; In
+this example, I have typed in the word "Time" to denote the column which
+will become the data of the cumulative time traversed by the differential
+equation.</font>
+
+</p><p><font size="+1">&nbsp;</font><img src="./Euler&#39;s Method Tutorial_files/pict1.jpg" nosave="" border="5" height="239" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 2 - entering text</font></b>
+<br><font size="+1">&nbsp;</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; Other text that we need can also be
+entered, as shown in Fig 3.&nbsp; I have made a separate column for the
+four different categories of data that we will need for each iteration:&nbsp;
+the current time (<b>t</b>), the current position (<b><font face="Symbol">q</font></b>),
+the current velocity (<b><font face="Symbol">q</font>'</b>), and the current
+acceleration (<b><font face="Symbol">q</font>''</b>).&nbsp; In addition,
+I have created a special section for the constants of the problem, namely,
+the time step (<b><font face="Symbol">D</font>t</b>) which we will be using,
+and the quantity <b>g/L</b> which we will need shortly.</font>
+<br><font size="+1">&nbsp;</font>
+<br><img src="./Euler&#39;s Method Tutorial_files/pict2.jpg" nosave="" border="5" height="239" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 3 - more text</font></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Next, we proceed to enter the known
+initial conditions for time t=0.&nbsp; Since we want to model the swinging
+pendulum experiment that we did in Kunkle Lounge, we put the initial position
+to some value (this really is up to you to decide what to put here, but
+for this example you might want to work along with me and use the same
+numbers I do.&nbsp; You can always change them later - after all, they
+are just numeric data!)&nbsp; I choose the initial position as 0.5, the
+initial velocity as 0, the time step as 0.1, and g/L as 1.&nbsp; Putting
+in everything we know, we get the following picture (Fig 4).&nbsp; <b>Notice
+that text data is justified to the left of the cell, and numeric data to
+the right of the cell.&nbsp; </b>This is just a convention that helps to
+distinguish between the two.</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/pict3.jpg" nosave="" border="5" height="240" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 4 - numeric data</font></b>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Ok, now comes the hard part:&nbsp;
+formulas.&nbsp; Since we have exhausted all the known data of our problem,
+we now have to use other facets of our problem to fill in the blanks.&nbsp;
+What about the acceleration at t=0?&nbsp; Is there an equation that we
+have for that?&nbsp; Check back above in case you forgot.</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; Knowing that we can relate the acceleration
+and position of the pendulum at any instant in time through the governing
+equation, we now need to let the spreadsheet know about this equation.&nbsp;
+First, place your cursor over the cell for the acceleration at t=0 and
+click.&nbsp; See figure 5:</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/pict4.jpg" nosave="" border="5" height="241" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 5 - the beginning of a function</font></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Next, in order to denote that we are
+entering an equation, type an equals sign (=) into the special cell that
+lies above the top row and under the toolbar.&nbsp; (Note:&nbsp; you can
+also just click on the equals sign that is right there).&nbsp; Now, type
+in the equation - since we know that the acceleration is given by -(g/L)*<b><font face="Symbol">q</font>
+</b>we tell the spreadsheet to multiply the value found in the G4 cell
+by the value found in the B4 cell.&nbsp; In addition to this, we need to
+make sure the spreadsheet understands that the quantity (g/L) will <b>always
+</b>be found in the G4 cell, so we denote this type of absolute reference
+by preceding each character by a "string" marker ($).&nbsp; Now, if we
+paste the function somewhere else, the reference to cell G5 won't change
+to G6, etc. but will always be the same.&nbsp; But, since the value of
+theta found in cell B4 is only good for the first time step, we don't want
+that reference to stay constant, so we don't include the $ markers for
+it.&nbsp; The final equation will look like Fig 6.&nbsp; Hit the return
+key to enter it in.</font>
+<table border="0" cellspacing="20">
+<tbody><tr>
+<td><img src="./Euler&#39;s Method Tutorial_files/pict5.jpg" nosave="" border="5" height="92" width="208"></td>
+
+<td><img src="./Euler&#39;s Method Tutorial_files/pict6.jpg" nosave="" border="5" height="82" width="74"></td>
+</tr>
+
+<tr>
+<td><b><font size="+1">Fig 6 - the completed function and ...</font></b></td>
+
+<td><b><font size="+1">Fig 7 - the result</font></b></td>
+</tr>
+</tbody></table>
+<font size="+1">&nbsp;&nbsp;&nbsp; Now that we have entered this function,
+and it is working in the background, it produces a number.&nbsp; Check
+to see that this number is ok, it should appear as in Fig 7.&nbsp; If you
+ever forget whether -0.5 is numeric data or data produced by a function,
+just click on the cell and the function will appear in the special cell
+again.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Ok, now we have filled in completely
+the t=0 line, so it's time to move on, literally.&nbsp; We first need to
+define the next time interval.&nbsp; Do this by entering a formula for
+the time t=1.&nbsp; Add the value of <b><font face="Symbol">D</font>t </b>to
+the value of t in the cell directly above it.&nbsp; <b>Don't just type</b>
+in the number .001, but instead reference the cell where <b><font face="Symbol">D</font>t
+</b>is located, that way if you want to change <b><font face="Symbol">D</font>t
+</b>later on all you'll have to do is change one cell and all the rest
+will automatically update themselves.&nbsp; Don't forget to make it an
+absolute reference!&nbsp; When you are done, your equation should look
+like:&nbsp; =A4+$F$5&nbsp; The value of .001 should appear in the cell
+as expected.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Now, finally, we get to put old Euler
+to work:&nbsp; If you don't remember how to get the next value of the position
+in time, refresh your memory by looking back above.&nbsp; The equation
+you enter into the B5 cell should look like:&nbsp; =B4+C4*(A5-A4)&nbsp;
+Why?&nbsp; Next, using the same approximation, move on to the B6 cell and
+enter the correct equation for the value of the velocity.&nbsp; The answer
+it produces when you hit the enter key should be -.05&nbsp; Now for the
+last cell in the time step t=1.&nbsp; Since we have already typed in the
+formula which relates the acceleration to the position of the pendulum
+at any instant, all that we need do is copy the equation from the t=0 cell
+to the t=1 cell.&nbsp; Do this by first highlighting the D4 cell and the
+D5 cell simultaneously (ie:&nbsp; hold down the button while moving the
+mouse over both of them)&nbsp; Then either click on the Edit-&gt;Paste Down
+menu or just type in Control-D and the formula will automatically copy
+itself into the D5 cell.&nbsp; Compare the two equations in the D4 and
+D5 cell.&nbsp; Why did some of the numbers change, and some did not?</font>
+
+</p><p>&nbsp;<img src="./Euler&#39;s Method Tutorial_files/pict7.jpg" nosave="" border="5" height="103" width="86" align="ABSCENTER">
+<br><b><font size="+1">Fig 8 - copying an equation</font></b>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Whew! we have finally typed in all
+the equations we need.&nbsp; Now it's time to iterate!&nbsp; But before
+you do that, it is probably a good idea to save your work.&nbsp; Next,
+highlight all four cells<b> in the t=1 row only</b>.&nbsp; Then, like before,
+drag down to paste the formulas down.&nbsp; Note that if you click and
+drag the lower right corner of the cell (where the little fancy square
+is) the spreadsheet will automatically copy everything for you.&nbsp; You
+are integrating forward in time!&nbsp; For a start, I copied down to the
+210th cell.</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">The Excel Spreadsheet - Plotting the Results</font></i></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Ok, now that we have solved the equation
+numerically, how do we visualize the results?&nbsp; Obviously we need to
+make some sort of plot.&nbsp; Do this easily by clicking on the "B" button,
+which highlights the whole B column (See Fig 9).</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/pict9.jpg" nosave="" border="5" height="384" width="637" align="ABSCENTER">
+<br><b><font size="+1">Fig 9 - making a chart</font></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Then, go up and click on the chart
+button on the toolbar.&nbsp; Select the type of chart you want (I chose
+a line chart).&nbsp; You can click on the sample button to get an idea
+of what the chart will look like.&nbsp; When you are satisfied, click on
+the "finish" button, and there you go.&nbsp; You can drag the chart wherever
+you want to put it.&nbsp; Hopefully you got something like Fig 10.&nbsp;
+Notice that the horizontal axis is the row number of the cell that each
+data point comes from.&nbsp; You can have fun and double click all over
+the chart to bring up menus that allow you to change the color, labels,
+x-axis data, etc - but I just left it plain Jane.</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/pict10.jpg" hspace="10" vspace="10" nosave="" border="5" height="463" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 10 - the chart</font></b>
+<br>&nbsp;
+<br><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">Interpreting the Results</font></i></b>
+
+</p><p>&nbsp;&nbsp;&nbsp; <font size="+1">Ok, now for the fun part - where you
+can ask yourself the question, "What does it all mean?"&nbsp; The first
+thing that you should notice (knowing from class that the correct solution
+to the DE is a cosine function of constant amplitude)&nbsp; is that the
+amplitude seems to be getting very large, very fast.&nbsp; In fact, we
+started out with an amplitude of 0.5 and after 20s we have an amplitude
+of over twice as large!&nbsp; Of course one interpretation of this phenomena
+is that we discovered a perpetual motion machine (or perhaps people walking
+on the overhead bridges in Kunkle were adding energy to our system).&nbsp;
+On the more cautious side, the other possibility is that our solution is
+not very accurate.&nbsp; After all, 0.1s is kind of a big value for <b><font face="Symbol">D</font>t</b>.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; To improve the accuracy of the solution,
+we need to make <b><font face="Symbol">D</font>t </b>smaller.&nbsp; Since
+we were foresighted enough to make an absolute reference to the one cell
+containing the time step information, all we need to is change the value
+in the F5 cell to something smaller, and the rest will take care of itself.&nbsp;
+I chose to change the time step to 0.01.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; Notice that the chart also changed,
+but this time we don't get to see much happening, because now we are only
+seeing about 2s worth of oscillation.&nbsp; The solution to this?&nbsp;
+Just go down to the bottom row of your cells, and integrate forward some
+more in time.&nbsp; I went a bit further this time and dragged the corner
+down to the 3000th cell.&nbsp; Also, you will need to change the range
+on your graph so that it reads all the way down there.&nbsp; Do this by
+clicking on the chart (so that it is outlined in little black boxes) and
+then click on the chart-&gt;source data menu.&nbsp; Change the line that says:&nbsp;
+Sheet1!$B$2:$B$210&nbsp; to:&nbsp; Sheet1!$B$2:$B$<b>3000&nbsp;</b>&nbsp;
+This will instruct the chart to read all the data.&nbsp; How does the amplitude
+change with time now?&nbsp; You may want to save your graphs using different
+time steps, for later comparison.</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><b><i><font size="+2">Measuring the Period of Oscillation</font></i></b>
+<br>&nbsp;
+<br><font size="+1">&nbsp;&nbsp;&nbsp; Now, to complete the assignment, we
+need to measure the period of the oscillation.&nbsp; There are a few ways
+that you could do this, so if you have an idea - then try it out!&nbsp;
+The way I'm going to present is only one way out of many.&nbsp; You can
+check your final answer with mine though if you like.</font>
+<br><font size="+1">&nbsp;</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; First, I created four more text cells
+in a row, with their corresponding data cells right below them.&nbsp; (see
+Fig 11)&nbsp; To measure the period we need to know the number of time
+steps traversed between two points on the graph of the same phase.&nbsp;
+Since our oscillation started out at max amplitude, I first called a function
+that finds the maximum value in the B column.&nbsp; Since the amplitude
+is still increasing a little each time, the =MAX(B4:B2760) function will
+pick out the value of the last amplitude peak on the graph.&nbsp; I put
+this function in the F23 cell.&nbsp; Then I employed a function in the
+G23 cell which was:&nbsp; =MATCH(F23,B4:B2760,0).&nbsp; The match function
+returns the row number of the cell which has the value found in F23, namely
+the max value!&nbsp; That way, I then know the time interval during which
+the last peak in amplitude occurs.&nbsp; <b>You can look up help on these
+functions and more through the online help</b>.&nbsp; In the third cell,
+I put a space for how many peaks occurred in the graph.&nbsp; I just had
+to enter this number visually each time the graph changed.&nbsp; Finally,
+in the fourth cell, I entered the equation:&nbsp; =(G23-4)*F5/H23&nbsp;
+so that I would get the period - total time traversed divided by the number
+of wavelengths traversed.&nbsp; I had four peaks, and so my measured period
+turned out to be 6.2775.</font>
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/pict11a.jpg" nosave="" border="5" height="461" width="639" align="ABSCENTER">
+<br><b><font size="+1">Fig 11 - the completed worksheet</font></b>
+<br><font size="+1">&nbsp;</font>
+<br><font size="+1">&nbsp;&nbsp;&nbsp; Since we solved this DE <i>exactly</i>
+in class, we know what the actual period <i>should</i> be:&nbsp; the formula
+for the period is:&nbsp; P=2<b><font face="Symbol">p</font>/<font face="Symbol">w</font></b></font>&nbsp;
+<font size="+1">And the formula for the angular frequency is root(g/L).&nbsp;
+Therefore, for my value of g/L of 1.0, the period should be around 6.2832.</font>
+
+</p><p><font size="+1">&nbsp;&nbsp;&nbsp; A few notes on this method.&nbsp; If
+your initial value for the velocity is anything but zero, you will have
+to put in another function that finds the first maximum value on the graph
+since t=0 won't be at the maximum aplitude anymore.&nbsp; Just remember
+that you need to get two points of exactly the same phase.&nbsp; If you
+want to change the time step and number of cells integrated you must change
+the following:&nbsp; index of chart data, index of max value function,
+index of match function, #of peaks observed cell.&nbsp; Of course, your
+error of the period you get will depend strongly on how large your time
+step is, and how far you integrated in time.&nbsp; You will also will want
+to measure the period for different amplitudes, which is now easy to do
+- just change the initial conditions.&nbsp; Have fun!</font>
+</p><center><font size="+1">Don't Forget:&nbsp; The assignment is due soon!</font></center>
+
+
+<p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p>Coming in the future (possibly):&nbsp; More sophisticated integration
+routines:&nbsp; Modified Euler's Method, and more. . .
+
+</p><p><img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+</p><p><a href="mailto:gray@engr.psu.edu"><img src="./Euler&#39;s Method Tutorial_files/buttn010.gif" nosave="" height="34" width="72" align="LEFT"></a><b><font size="+2">Please
+email us with your response to this tutorial!&nbsp; Did you find it helpful,
+insightful, boring, a waste of your time?&nbsp; Did you think this tutorial
+was more or less helpful than the book and/or lecture in aiding you to
+complete the spreadsheet assignment?</font></b>
+</p><center><img src="./Euler&#39;s Method Tutorial_files/oilwell.gif" nosave="" height="82" width="116" align="CENTER"></center>
+&nbsp;<img src="./Euler&#39;s Method Tutorial_files/blu_bar.gif" nosave="" height="11" width="968">
+
+<p><img src="./Euler&#39;s Method Tutorial_files/redball.gif" nosave="" height="14" width="14"><i>Prepared
+by Mike Stubna and Wendy McCullough.</i>
+
+</p><p><!--#config timefmt="%A, %B %d, %Y at %X"--><i>This page was last modified
+on&nbsp;<!--#echo var="last_modified"-->.</i>
+
+</p><p><i>© Copyright 1999 by Mike Stubna, Wendy McCullough and Gary L.
+Gray.&nbsp; All rights reserved.</i>
+
+
+</p></body></html>

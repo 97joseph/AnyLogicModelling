@@ -1,0 +1,155 @@
+{UTF-8}
+INVESTMENT FACTOR=
+	1
+	~	1/(Month*Month)
+	~		|
+
+investment rate=
+	inventory gap*INVESTMENT FACTOR
+	~	units/(Month*Month)
+	~		|
+
+inventory= INTEG (
+	delivery rate-sales rate,
+		1)
+	~	units
+	~		|
+
+delivery rate=
+	production capacity
+	~	units/Month
+	~		|
+
+production capacity= INTEG (
+	investment rate,
+		1)
+	~	units/Month
+	~		|
+
+sales rate=
+	SALES SCENARIO
+	~	units/Month
+	~		|
+
+SALES SCENARIO=
+	0.9
+	~	units/Month
+	~		|
+
+inventory gap=
+	INVENTORY GOAL-inventory
+	~	units
+	~		|
+
+INVENTORY GOAL=
+	1
+	~	units
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 20
+	~	Month
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Month
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Month [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.0625
+	~	Month [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,@Arial Unicode MS|12||0-0-0|0-0-0|0-0-0|-1--1--1|-1--1--1|96,96,100,0
+10,1,inventory,261,75,45,23,3,3,0,0,0,0,0,0
+10,2,production capacity,139,294,45,23,3,3,0,0,0,0,0,0
+12,3,48,19,70,10,8,0,3,0,0,-1,0,0,0
+1,4,6,1,4,0,0,22,0,0,0,-1--1--1,,1|(171,70)|
+1,5,6,3,100,0,0,22,0,0,0,-1--1--1,,1|(72,70)|
+11,6,48,121,70,5,6,34,3,0,0,1,0,0,0
+10,7,delivery rate,121,97,67,21,40,131,0,0,-1,0,0,0
+12,8,48,457,72,10,8,0,3,0,0,-1,0,0,0
+1,9,11,8,4,0,0,22,0,0,0,-1--1--1,,1|(413,72)|
+1,10,11,1,100,0,0,22,0,0,0,-1--1--1,,1|(338,72)|
+11,11,48,375,72,5,6,34,3,0,0,1,0,0,0
+10,12,sales rate,375,88,36,12,40,3,0,0,-1,0,0,0
+10,13,SALES SCENARIO,520,118,50,16,8,3,0,8,0,0,0,0,0-0-0,0-0-0,|10||0-0-0
+1,14,2,7,1,0,0,0,0,64,0,-1--1--1,,1|(65,224)|
+1,15,13,12,1,0,0,0,0,64,0,-1--1--1,,1|(439,133)|
+10,16,INVENTORY GOAL,515,246,60,10,8,3,0,8,0,0,0,0,0-0-0,0-0-0,|10||0-0-0
+10,17,inventory gap,351,213,61,22,8,131,0,0,0,0,0,0
+1,18,1,17,1,0,0,0,0,64,0,-1--1--1,,1|(325,122)|
+1,19,16,17,1,0,0,0,0,64,0,-1--1--1,,1|(439,213)|
+12,20,0,107,19,96,15,3,4,0,4,0,0,0,0,0-0-0,0-255-255,|12||0-0-0
+Production and Inventory
+12,21,48,347,293,10,8,0,3,0,0,-1,0,0,0
+1,22,24,2,4,0,0,22,0,0,0,-1--1--1,,1|(219,293)|
+1,23,24,21,100,0,0,22,0,0,0,-1--1--1,,1|(300,293)|
+11,24,48,259,293,5,6,34,3,0,0,1,0,0,0
+10,25,investment rate,259,321,66,22,40,131,0,0,-1,0,0,0
+1,26,17,24,1,0,0,0,0,64,0,-1--1--1,,1|(316,260)|
+10,27,INVESTMENT FACTOR,356,413,49,16,8,3,0,8,0,0,0,0,0-0-0,0-0-0,|10||0-0-0
+1,28,27,25,1,0,0,0,0,64,0,-1--1--1,,1|(313,358)|
+12,30,0,864,253,252,221,3,188,0,0,1,0,0,0
+EZ503Ab
+///---\\\
+:GRAPH EZ503Ab
+:TITLE Production and Inventory
+:X-AXIS Time
+:X-DIV 10
+:X-MIN 0
+:X-MAX 20
+:SCALE
+:VAR inventory
+:Y-MIN 0
+:Y-MAX 4
+:LINE-WIDTH 2
+:VAR production capacity
+:Y-MIN 0
+:Y-MAX 4
+:LINE-WIDTH 3
+:VAR sales rate
+:Y-MIN 0
+:Y-MAX 4
+:LINE-WIDTH 4
+
+:GRAPH EZ503Ac
+:TITLE Production and Inventory
+:X-AXIS production capacity
+:X-DIV 4
+:X-MIN 0
+:X-MAX 4
+:SCALE
+:VAR inventory
+:Y-MIN 0
+:Y-MAX 2
+:LINE-WIDTH 2
+:L<%^E!@
+1:.vdf
+9:.
+23:0
+15:0,0,0,1,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:SALES SCENARIO
+24:0
+25:20
+26:20
