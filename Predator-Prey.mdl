@@ -83,7 +83,7 @@ INITIAL TIME  = 0
 	|
 
 SAVEPER  = 
-        TIME STEP 
+        TIME STEP
 	~	Month [0,?]
 	~	The frequency with which output is stored.
 	|
@@ -138,27 +138,27 @@ $192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,1
 1,39,38,1,0,0,0,0,0,128,1,-1--1--1,,1|(285,106)|
 10,40,initial prey,238,344,33,11,8,3,0,0,0,0,0,0
 1,41,40,2,0,0,0,0,0,128,1,-1--1--1,,1|(255,364)|
-12,42,0,746,184,165,154,3,188,0,0,1,0,0,0
+12,42,985664,746,184,165,154,3,188,0,0,1,0,0,0
 GRAPH
-12,43,0,1068,181,150,150,3,44,0,0,1,0,0,0
+12,43,2033914,1068,181,150,150,3,44,0,0,1,0,0,0
 GRAPH_0
 ///---\\\
 :GRAPH GRAPH
-:TITLE  
 :X-AXIS Predator
 :SCALE
 :VAR Prey
 
 :GRAPH GRAPH_0
-:TITLE  
 :X-AXIS Time
 :SCALE
 :VAR Predator
 :SCALE
 :VAR Prey
 :L<%^E!@
+1:q2.vdf
 1:Current.vdf
-9:Current
+9:q2
+23:0
 15:0,0,0,1,0,0
 19:100,0
 27:0,
